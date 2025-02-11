@@ -17,12 +17,12 @@ app.get('/logins', async (req, res) => {
 
 // Rota para salvar login
 app.post('/login', async (req, res) => {
-    const { username, password } = req.body;
+    const { gomes_larie, password } = req.body;
     const timestamp = new Date();
 
     try {
-        await client.query('INSERT INTO logins (username, password, timestamp) VALUES ($1, $2, $3)', 
-        [username, password, timestamp]);
+        await client.query('INSERT INTO logins (gomes_larie, password, timestamp) VALUES ($1, $2, $3)', 
+        [gomes_larie, password, timestamp]);
         
         res.json({ message: 'Login salvo com sucesso!' });
     } catch (error) {

